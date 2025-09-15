@@ -4,7 +4,7 @@ Tiny composite GitHub Action that just notifies me when an event occurs
 
 ### Inputs
 - `token` **required** — secret needed
-- `type` **required** - enumerable representing "PERSONAL", "SERVICE"or "REMINDER"
+- `type` optional — one of `SERVICE`, `PERSONAL`, `REMINDER` (defaults to `SERVICE`)
 - `title` **required**
 - `message` **required**
 - `subject` optional
@@ -32,7 +32,7 @@ jobs:
         uses: ashgw/notify@main
         with:
           token: ${{ secrets.ASHGW_NOTIFY_TOKEN }}
-          type: PR_OPENED
+          # type: SERVICE            # optional; defaults to SERVICE
           title: ${{ github.event.pull_request.title }}
           message: "PR #${{ github.event.number }} by ${{ github.actor }} on ${{ github.repository }} (${{ github.head_ref }} -> ${{ github.base_ref }}) ${{ github.event.pull_request.html_url }}"
           # subject: "optional"
@@ -43,7 +43,7 @@ Payload sent:
 
 ```json
 {
-  "type": "PR_OPENED",
+  "type": "SERVICE",
   "title": "your title",
   "message": "your message",
   "subject": "optional",
