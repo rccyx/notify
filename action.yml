@@ -1,0 +1,53 @@
+name: "notify"
+description: "Send me a notification"
+author: "@ashgw"
+branding:
+  icon: "bell"
+  color: "purple"
+
+inputs:
+  token:
+    description: "Auth token"
+    required: true
+  type:
+    description: "Notification type (SERVICE, PERSONAL, REMINDER) "
+    required: false
+  title:
+    description: "Notification title"
+    required: true
+  message:
+    description: "Notification message"
+    required: true
+  subject:
+    description: "Optional subject"
+    required: false
+    default: ""
+  to:
+    description: "Optional recipient"
+    required: false
+    default: ""
+
+outputs:
+  ok:
+    description: "true if HTTP 2xx"
+    value: ${{ steps.notify.outputs.ok }}
+  http_code:
+    description: "HTTP status code"
+    value: ${{ steps.notify.outputs.http_code }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: notify
+      id: notify
+      shell: bash
+      env:
+        INPUT_TOKEN: ${{ inputs.token }}
+        INPUT_TYPE: ${{ inputs.type }}
+        INPUT_TITLE: ${{ inputs.title }}
+        INPUT_MESSAGE: ${{ inputs.message }}
+        INPUT_SUBJECT: ${{ inputs.subject }}
+        INPUT_TO: ${{ inputs.to }}
+      run: |
+        bash "${GITHUB_ACTION_PATH}/scripts/notify.sh"
+
