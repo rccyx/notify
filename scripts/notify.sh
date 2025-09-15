@@ -61,7 +61,7 @@ fi
 resp_file="$(mktemp)"
 http_code="$(
   curl -sS -o "${resp_file}" -w "%{http_code}" \
-    -H "x-cron-token: ${INPUT_TOKEN}" \
+    -H "x-api-token: ${INPUT_TOKEN}" \
     -H "Content-Type: application/json" \
     -X POST "${ENDPOINT}" \
     --data-binary "${payload}" \
