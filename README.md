@@ -37,5 +37,17 @@ jobs:
           message: "PR #${{ github.event.number }} by ${{ github.actor }} on ${{ github.repository }} (${{ github.head_ref }} -> ${{ github.base_ref }}) ${{ github.event.pull_request.html_url }}"
           # subject: "optional"
           # to: "optional@domain.tld"
+````
+
+Payload sent:
+
+```json
+{
+  "type": "PR_OPENED",
+  "title": "your title",
+  "message": "your message",
+  "subject": "optional",
+  "to": "optional"
+}
 ```
 
