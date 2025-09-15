@@ -2,6 +2,8 @@
 
 Tiny composite GitHub Action that just notifies me when an event occurs
 
+<img width="1598" height="35" alt="image" src="https://github.com/user-attachments/assets/15e56510-8404-41ee-87dc-77c3a18e2fd6" />
+
 ### Inputs
 - `token` **required:** secret needed
 - `type` **optional:** one of `SERVICE`, `PERSONAL`, `REMINDER` (defaults to `SERVICE`)
