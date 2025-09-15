@@ -3,16 +3,16 @@
 Tiny composite GitHub Action that just notifies me when an event occurs
 
 ### Inputs
-- `token` **required** — secret needed
-- `type` optional — one of `SERVICE`, `PERSONAL`, `REMINDER` (defaults to `SERVICE`)
+- `token` **required** -> secret needed
+- `type` optional —> one of `SERVICE`, `PERSONAL`, `REMINDER` (defaults to `SERVICE`)
 - `title` **required**
 - `message` **required**
 - `subject` optional
 - `to` optional (me), sometimes I send to someone else
 
 ### Outputs
-- `ok` — `true` on 2xx
-- `http_code` — numeric status
+- `ok` —> `true` on 2xx
+- `http_code` —> numeric status
 
 ### Example
 
