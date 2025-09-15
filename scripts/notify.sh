@@ -6,13 +6,24 @@ ENDPOINT="https://ashgw.me/api/v1/notify"
 # Mask token
 echo "::add-mask::${INPUT_TOKEN}"
 
+# Only required validation: token presence
 if [[ -z "${INPUT_TOKEN:-}" ]]; then
   echo "::error::token is required"
   echo "ok=false" >> "$GITHUB_OUTPUT"
   echo "http_code=0" >> "$GITHUB_OUTPUT"
   exit 1
 fi
-for req in INPUT_TYPE INPUT_TITLE INPUT_MESSAGE; do
+
+# Default type to SERVICE if not provided; normalize to UPPER
+if [[ -z "${INPUT_TYPE:-}" ]]; then
+  INPUT_TYPE="SERVICE"
+else
+  # normalize to uppercase (tolerate lowercase in workflows)
+  INPUT_TYPE="$(printf '%s' "${INPUT_TYPE}" | tr '[:lower:]' '[:upper:]')"
+fi
+
+# Still require title/message
+for req in INPUT_TITLE INPUT_MESSAGE; do
   if [[ -z "${!req:-}" ]]; then
     echo "::error::${req#INPUT_} is required"
     echo "ok=false" >> "$GITHUB_OUTPUT"
@@ -38,13 +49,12 @@ MESSAGE_ESC=$(json_escape "${INPUT_MESSAGE}")
 SUBJECT_ESC=$(json_escape "${INPUT_SUBJECT}")
 TO_ESC=$(json_escape "${INPUT_TO}")
 
-# Build minimal JSON (only include optional keys if provided)
+# Build minimal JSON (include optional keys only if provided)
 payload='{"type":"'"${TYPE_ESC}"'","title":"'"${TITLE_ESC}"'","message":"'"${MESSAGE_ESC}"'"}'
 if [[ -n "${INPUT_SUBJECT}" ]]; then
   payload=${payload%?}',"subject":"'"${SUBJECT_ESC}"'"}'
 fi
 if [[ -n "${INPUT_TO}" ]]; then
-  # insert before closing brace
   payload=${payload%?}',"to":"'"${TO_ESC}"'"}'
 fi
 
