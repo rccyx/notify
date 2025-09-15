@@ -10,8 +10,9 @@ inputs:
     description: "Auth token"
     required: true
   type:
-    description: "Notification type (SERVICE, PERSONAL, REMINDER) "
+    description: "Notification type (SERVICE, PERSONAL, REMINDER)"
     required: false
+    default: "SERVICE"
   title:
     description: "Notification title"
     required: true
