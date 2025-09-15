@@ -1,19 +1,27 @@
-name: Example - notify
+name: PR Notify
 on:
   pull_request:
     types: [opened, synchronize, reopened]
 
 jobs:
-  ping:
+  notify:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
     steps:
-      - uses: actions/checkout@v4
-      - us
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Send notification
+        uses: ashgw/notify@main
         with:
           token: ${{ secrets.ASHGW_NOTIFY_TOKEN }}
-          type: PR_OPENED
+          # type: SERVICE   # optional; defaults to SERVICE
           title: ${{ github.event.pull_request.title }}
-          message: "PR #${{ github.event.number }} by ${{ github.actor }} on ${{ github.repository }} (${{ github.head_ref }} -> ${{ github.base_ref }}) ${{ github.event.pull_request.html_url }}"
-          # subject: "optional"
-          # to: "optional@domain.tld"
+          message: >-
+            PR #${{ github.event.number }} by ${{ github.actor }}
+            on ${{ github.repository }}
+            (${{ github.event.pull_request.head.ref }} -> ${{ github.event.pull_request.base.ref }})
+            ${{ github.event.pull_request.html_url }}
 
