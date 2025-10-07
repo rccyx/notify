@@ -31,9 +31,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Send notification
-        uses: ashgw/notify@main
+        uses: rccyx/notify@main
         with:
-          token: ${{ secrets.ASHGW_NOTIFY_TOKEN }}
+          token: ${{ secrets.RCCYX_NOTIFY_TOKEN }}
           # type: SERVICE            # optional; defaults to SERVICE
           title: ${{ github.event.pull_request.title }}
           message: "PR #${{ github.event.number }} by ${{ github.actor }} on ${{ github.repository }} (${{ github.head_ref }} -> ${{ github.base_ref }}) ${{ github.event.pull_request.html_url }}"

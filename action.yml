@@ -1,6 +1,6 @@
-name: "ashgw-notify"
+name: "rccyx-notify"
 description: "Send me a notification"
-author: "@ashgw"
+author: "@rccyx"
 branding:
   icon: "bell"
   color: "purple"

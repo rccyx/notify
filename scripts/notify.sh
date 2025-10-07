@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ENDPOINT="https://ashgw.me/api/v1/notify"
+ENDPOINT="https://api.rccyx.com/v1/notify"
 
 # Mask token
 echo "::add-mask::${INPUT_TOKEN}"
